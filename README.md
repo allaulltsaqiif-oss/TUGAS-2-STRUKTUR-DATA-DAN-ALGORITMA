@@ -115,8 +115,8 @@ Varian Insertion Sort yang membandingkan elemen dengan jarak (gap) tertentu, sem
 ---
 
 ## 👥 Anggota Kelompok
-| No | Nama | NIM |
+| No | Nama | NPM |
 |---|---|---|
-| 1 | ... | ... |
-| 2 | ... | ... |
-| 3 | ... | ... |
+| 1 | Al Aul Tsaqif |250810701100034|
+| 2 |Muhammad Rayyan | ... |
+| 3 |Imam As-Shadiq| ... |
