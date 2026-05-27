@@ -113,3 +113,10 @@ Konstanta berikut dapat diubah di bagian atas `sorting.c`:
 - Compiler: GCC (versi 5 ke atas direkomendasikan)
 - Sistem Operasi: Linux / macOS / Windows (dengan MinGW)
 - Fungsi `strcasecmp` tersedia di POSIX. Pengguna Windows perlu mengganti dengan `_stricmp` jika menggunakan MSVC.
+
+## 👥 Anggota Kelompok
+| No | Nama | NPM |
+|---|---|---|
+| 1 | AL AUL TSAQIF | 250810701100034 |
+| 2 | MUHAMMAD RAYYAN | ... |
+| 3 | IMAM AS-SHADIQ | ... |
