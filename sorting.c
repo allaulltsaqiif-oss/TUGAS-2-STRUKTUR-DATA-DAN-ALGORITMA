@@ -23,18 +23,6 @@
 #define WORDS_FILE      "words_en.txt"
 
 /* ============================================================
- *  WARNA TERMINAL (ANSI)
- * ============================================================ */
-#define RESET   "\033[0m"       // Reset warna
-#define BOLD    "\033[1m"       // Teks tebal
-#define CYAN    "\033[1;36m"    // Warna cyan untuk judul
-#define GREEN   "\033[1;32m"    // Warna hijau untuk hasil sukses
-#define YELLOW  "\033[1;33m"    // Warna kuning untuk label
-#define RED     "\033[1;31m"    // Warna merah untuk error
-#define MAGENTA "\033[1;35m"    // Warna magenta untuk benchmark
-#define WHITE   "\033[1;37m"    // Warna putih untuk menu utama
-
-/* ============================================================
  *  UTILITAS UMUM
  * ============================================================ */
 
@@ -62,7 +50,7 @@ void copy_int_arr(int *dst, const int *src, int n) {
     for (int i = 0; i < n; i++) dst[i] = src[i];
 }
 
-/* Salin array string */
+// Salin array string //
 void copy_str_arr(char dst[][MAX_WORD_LEN], char src[][MAX_WORD_LEN], int n) {
     for (int i = 0; i < n; i++) strcpy(dst[i], src[i]);
 }
@@ -70,7 +58,7 @@ void copy_str_arr(char dst[][MAX_WORD_LEN], char src[][MAX_WORD_LEN], int n) {
 /* Tampilkan preview array integer */
 void preview_int(const char *label, int *arr, int n, int preview) {
     int show = (preview < n) ? preview : n;
-    printf("%s%s%s : ", YELLOW, label, RESET);
+    printf("%s : ", label);
     for (int i = 0; i < show; i++) {
         printf("%d", arr[i]);
         if (i < show - 1) printf(", ");
@@ -82,7 +70,7 @@ void preview_int(const char *label, int *arr, int n, int preview) {
 /* Tampilkan preview array string */
 void preview_str(const char *label, char arr[][MAX_WORD_LEN], int n, int preview) {
     int show = (preview < n) ? preview : n;
-    printf("%s%s%s : ", YELLOW, label, RESET);
+    printf("%s : ", label);
     for (int i = 0; i < show; i++) {
         printf("%s", arr[i]);
         if (i < show - 1) printf(", ");
@@ -119,7 +107,7 @@ void shuffle_int(int *arr, int n) {
 int load_words(char words[][MAX_WORD_LEN], int max) {
     FILE *fp = fopen(WORDS_FILE, "r");
     if (!fp) {
-        printf(RED "  [ERROR] File '%s' tidak ditemukan!\n" RESET, WORDS_FILE);
+        printf("  [ERROR] File '%s' tidak ditemukan!\n", WORDS_FILE);
         printf("  Pastikan file words_en.txt berada di direktori yang sama dengan program.\n");
         return -1;
     }
@@ -264,10 +252,10 @@ void shell_sort_str(char arr[][MAX_WORD_LEN], int n) {
 
 void run_basic_sort(const char *name, void (*sort_fn)(int *, int),
                     const int *original, int n) {
-    printf("\n" CYAN "  [%s]" RESET "\n", name);
+    printf("\n  [%s]\n", name);
 
     int *arr = malloc(n * sizeof(int));
-    if (!arr) { printf(RED "  Alokasi memori gagal!\n" RESET); return; }
+    if (!arr) { printf("  Alokasi memori gagal!\n"); return; }
     copy_int_arr(arr, original, n);
 
     /* Shuffle sebelum sorting */
@@ -279,18 +267,17 @@ void run_basic_sort(const char *name, void (*sort_fn)(int *, int),
     clock_t end = clock();
 
     preview_int("  Sesudah Sort ", arr, n, PREVIEW_COUNT);
-    printf(GREEN "  Waktu Eksekusi : %.4f ms\n" RESET, elapsed_ms(start, end));
+    printf("  Waktu Eksekusi : %.4f ms\n", elapsed_ms(start, end));
 
     free(arr);
 }
 
 void run_advance_sort_mg(const char *name,
                          char words[][MAX_WORD_LEN], int n) {
-    printf("\n" CYAN "  [%s]" RESET "\n", name);
+    printf("\n  [%s]\n", name);
 
-    /* Alokasi buffer sementara */
     char (*arr)[MAX_WORD_LEN] = malloc(n * MAX_WORD_LEN);
-    if (!arr) { printf(RED "  Alokasi memori gagal!\n" RESET); return; }
+    if (!arr) { printf("  Alokasi memori gagal!\n"); return; }
     copy_str_arr(arr, words, n);
     shuffle_str(arr, n);
     preview_str("  Sebelum Sort", arr, n, PREVIEW_COUNT);
@@ -300,15 +287,15 @@ void run_advance_sort_mg(const char *name,
     clock_t end = clock();
 
     preview_str("  Sesudah Sort ", arr, n, PREVIEW_COUNT);
-    printf(GREEN "  Waktu Eksekusi : %.4f ms\n" RESET, elapsed_ms(start, end));
+    printf("  Waktu Eksekusi : %.4f ms\n", elapsed_ms(start, end));
     free(arr);
 }
 
 void run_advance_sort_qs(const char *name,
                          char words[][MAX_WORD_LEN], int n) {
-    printf("\n" CYAN "  [%s]" RESET "\n", name);
+    printf("\n  [%s]\n", name);
     char (*arr)[MAX_WORD_LEN] = malloc(n * MAX_WORD_LEN);
-    if (!arr) { printf(RED "  Alokasi memori gagal!\n" RESET); return; }
+    if (!arr) { printf("  Alokasi memori gagal!\n"); return; }
     copy_str_arr(arr, words, n);
     shuffle_str(arr, n);
     preview_str("  Sebelum Sort", arr, n, PREVIEW_COUNT);
@@ -318,15 +305,15 @@ void run_advance_sort_qs(const char *name,
     clock_t end = clock();
 
     preview_str("  Sesudah Sort ", arr, n, PREVIEW_COUNT);
-    printf(GREEN "  Waktu Eksekusi : %.4f ms\n" RESET, elapsed_ms(start, end));
+    printf("  Waktu Eksekusi : %.4f ms\n", elapsed_ms(start, end));
     free(arr);
 }
 
 void run_advance_sort_sh(const char *name,
                          char words[][MAX_WORD_LEN], int n) {
-    printf("\n" CYAN "  [%s]" RESET "\n", name);
+    printf("\n  [%s]\n", name);
     char (*arr)[MAX_WORD_LEN] = malloc(n * MAX_WORD_LEN);
-    if (!arr) { printf(RED "  Alokasi memori gagal!\n" RESET); return; }
+    if (!arr) { printf("  Alokasi memori gagal!\n"); return; }
     copy_str_arr(arr, words, n);
     shuffle_str(arr, n);
     preview_str("  Sebelum Sort", arr, n, PREVIEW_COUNT);
@@ -336,7 +323,7 @@ void run_advance_sort_sh(const char *name,
     clock_t end = clock();
 
     preview_str("  Sesudah Sort ", arr, n, PREVIEW_COUNT);
-    printf(GREEN "  Waktu Eksekusi : %.4f ms\n" RESET, elapsed_ms(start, end));
+    printf("  Waktu Eksekusi : %.4f ms\n", elapsed_ms(start, end));
     free(arr);
 }
 
@@ -348,7 +335,7 @@ void menu_sorting_dasar(int *int_data, int n) {
     do {
         printf("\n");
         print_line('=', 40);
-        printf(BOLD "       === SORTING DASAR ===\n" RESET);
+        printf("       === SORTING DASAR ===\n");
         print_line('=', 40);
         printf("  1. Bubble Sort\n");
         printf("  2. Insertion Sort\n");
@@ -370,7 +357,7 @@ void menu_sorting_dasar(int *int_data, int n) {
                 run_basic_sort("Selection Sort", selection_sort, int_data, n);
                 break;
             case 4:
-                printf("\n" MAGENTA "  === Benchmark Sorting Dasar (%d data) ===" RESET "\n", n);
+                printf("\n  === Benchmark Sorting Dasar (%d data) ===\n", n);
                 run_basic_sort("Bubble Sort",    bubble_sort,    int_data, n);
                 run_basic_sort("Insertion Sort", insertion_sort, int_data, n);
                 run_basic_sort("Selection Sort", selection_sort, int_data, n);
@@ -379,7 +366,7 @@ void menu_sorting_dasar(int *int_data, int n) {
                 printf("  Kembali ke menu utama...\n");
                 break;
             default:
-                printf(RED "  Pilihan tidak valid!\n" RESET);
+                printf("  Pilihan tidak valid!\n");
         }
     } while (choice != 5);
 }
@@ -389,7 +376,7 @@ void menu_sorting_dasar(int *int_data, int n) {
  * ============================================================ */
 void menu_advance_sorting(char words[][MAX_WORD_LEN], int word_count) {
     if (word_count <= 0) {
-        printf(RED "\n  Data kata tidak tersedia. Pastikan file words_en.txt ada.\n" RESET);
+        printf("\n  Data kata tidak tersedia. Pastikan file words_en.txt ada.\n");
         return;
     }
 
@@ -397,7 +384,7 @@ void menu_advance_sorting(char words[][MAX_WORD_LEN], int word_count) {
     do {
         printf("\n");
         print_line('=', 40);
-        printf(BOLD "       === ADVANCE SORTING ===\n" RESET);
+        printf("       === ADVANCE SORTING ===\n");
         printf("       Dataset : %d kata\n", word_count);
         print_line('=', 40);
         printf("  1. Merge Sort\n");
@@ -420,7 +407,7 @@ void menu_advance_sorting(char words[][MAX_WORD_LEN], int word_count) {
                 run_advance_sort_sh("Shell Sort", words, word_count);
                 break;
             case 4:
-                printf("\n" MAGENTA "  === Benchmark Advance Sorting (%d kata) ===" RESET "\n", word_count);
+                printf("\n  === Benchmark Advance Sorting (%d kata) ===\n", word_count);
                 run_advance_sort_mg("Merge Sort", words, word_count);
                 run_advance_sort_qs("Quick Sort", words, word_count);
                 run_advance_sort_sh("Shell Sort", words, word_count);
@@ -429,7 +416,7 @@ void menu_advance_sorting(char words[][MAX_WORD_LEN], int word_count) {
                 printf("  Kembali ke menu utama...\n");
                 break;
             default:
-                printf(RED "  Pilihan tidak valid!\n" RESET);
+                printf("  Pilihan tidak valid!\n");
         }
     } while (choice != 5);
 }
@@ -445,15 +432,15 @@ int main(void) {
     generate_random_int(int_data, INT_DATA_SIZE);
 
     /* --- Persiapan data string --- */
-    printf("\n" CYAN "  Memuat dataset kata dari '%s'..." RESET "\n", WORDS_FILE);
+    printf("\n  Memuat dataset kata dari '%s'...\n", WORDS_FILE);
     char (*words)[MAX_WORD_LEN] = malloc((long)MAX_WORDS * MAX_WORD_LEN);
     int word_count = 0;
     if (words) {
         word_count = load_words(words, MAX_WORDS);
         if (word_count > 0)
-            printf(GREEN "  Berhasil memuat %d kata.\n" RESET, word_count);
+            printf("  Berhasil memuat %d kata.\n", word_count);
     } else {
-        printf(RED "  Gagal mengalokasikan memori untuk dataset kata.\n" RESET);
+        printf("  Gagal mengalokasikan memori untuk dataset kata.\n");
     }
 
     /* --- Menu utama --- */
@@ -461,7 +448,7 @@ int main(void) {
     do {
         printf("\n");
         print_line('=', 40);
-        printf(BOLD WHITE "        === MENU UTAMA ===\n" RESET);
+        printf("        === MENU UTAMA ===\n");
         print_line('=', 40);
         printf("  1. Sorting Dasar  (Integer, %d data)\n", INT_DATA_SIZE);
         printf("  2. Advance Sorting (String, %d kata)\n", word_count);
@@ -478,10 +465,10 @@ int main(void) {
                 menu_advance_sorting(words, word_count);
                 break;
             case 3:
-                printf("\n" GREEN "  Terima kasih! Program selesai.\n\n" RESET);
+                printf("\n  Terima kasih! Program selesai.\n\n");
                 break;
             default:
-                printf(RED "  Pilihan tidak valid! Masukkan 1-3.\n" RESET);
+                printf("  Pilihan tidak valid! Masukkan 1-3.\n");
         }
     } while (choice != 3);
 
