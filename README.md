@@ -1,122 +1,115 @@
-# Tugas 2 – Praktikum Struktur Data dan Algoritma C
-## Implementasi dan Analisis Algoritma Sorting
+# Tugas 2 — Implementasi dan Analisis Algoritma Sorting
+**Mata Kuliah:** Praktikum Struktur Data dan Algoritma C
 
 ---
 
-## 📋 Deskripsi
-Program CLI berbasis bahasa **C** yang mengimplementasikan dan membandingkan performa berbagai algoritma sorting:
+## Deskripsi
 
-| Kategori | Algoritma | Tipe Data |
+Program ini mengimplementasikan dan membandingkan performa enam algoritma sorting yang dibagi menjadi dua kategori:
+
+- **Sorting Dasar** — bekerja pada array integer acak (1.000 data)
+- **Advance Sorting** — bekerja pada array string kata bahasa Inggris (hingga 500.000 kata)
+
+Setiap algoritma menampilkan preview data sebelum dan sesudah diurutkan, serta waktu eksekusi dalam milidetik.
+
+---
+
+## Algoritma yang Diimplementasikan
+
+### Sorting Dasar (Integer)
+| Algoritma | Kompleksitas Waktu | Keterangan |
 |---|---|---|
-| Sorting Dasar | Bubble Sort, Insertion Sort, Selection Sort | Integer (1000 data acak) |
-| Advance Sorting | Merge Sort, Quick Sort, Shell Sort | String (file `words_en.txt`) |
+| Bubble Sort | O(n²) | Membandingkan dan menukar elemen berdekatan secara berulang |
+| Insertion Sort | O(n²) | Menyisipkan elemen satu per satu ke posisi yang tepat |
+| Selection Sort | O(n²) | Memilih elemen terkecil lalu menempatkannya di awal |
+
+### Advance Sorting (String)
+| Algoritma | Kompleksitas Waktu | Keterangan |
+|---|---|---|
+| Merge Sort | O(n log n) | Divide and conquer; stabil dan konsisten untuk dataset besar |
+| Quick Sort | O(n log n) avg | Pivot median-of-three untuk menghindari worst-case |
+| Shell Sort | O(n log² n) | Insertion sort dengan gap bertahap |
 
 ---
 
-## 📁 Struktur File
+## Struktur File
+
 ```
 .
 ├── sorting.c       # Source code utama
-├── words_en.txt    # Dataset kata (letakkan di folder yang sama)
-└── README.md
+├── words_en.txt    # Dataset kata bahasa Inggris (wajib ada)
+└── README.md       # Dokumentasi ini
 ```
+
+> **Penting:** File `words_en.txt` harus berada di direktori yang sama dengan program. Tanpa file ini, menu Advance Sorting tidak dapat dijalankan.
 
 ---
 
-## ⚙️ Cara Kompilasi & Menjalankan
-
-### Prasyarat
-- GCC (GNU Compiler Collection)
-- File `words_en.txt` dari [Kaggle – words-en](https://www.kaggle.com/datasets/jiprud/words-en) diletakkan di folder yang sama dengan program
+## Cara Kompilasi dan Menjalankan
 
 ### Kompilasi
 ```bash
-gcc -O2 -Wall -o sorting sorting.c
+gcc -o sorting sorting.c
 ```
 
 ### Menjalankan
 ```bash
 ./sorting
 ```
-*(Windows: `sorting.exe`)*
 
 ---
 
-## 🖥️ Tampilan Menu
+## Contoh Output
+
 ```
+  Memuat dataset kata dari 'words_en.txt'...
+  Berhasil memuat 370103 kata.
+
 ========================================
         === MENU UTAMA ===
 ========================================
   1. Sorting Dasar  (Integer, 1000 data)
-  2. Advance Sorting (String, N kata)
+  2. Advance Sorting (String, 370103 kata)
   3. Keluar
 ----------------------------------------
   Pilih menu :
 ```
 
-### Submenu Sorting Dasar
+Setelah memilih algoritma:
 ```
-========================================
-       === SORTING DASAR ===
-========================================
-  1. Bubble Sort
-  2. Insertion Sort
-  3. Selection Sort
-  4. Jalankan Semua (Benchmark)
-  5. Kembali
-```
-
-### Submenu Advance Sorting
-```
-========================================
-       === ADVANCE SORTING ===
-========================================
-  1. Merge Sort
-  2. Quick Sort
-  3. Shell Sort
-  4. Jalankan Semua (Benchmark)
-  5. Kembali
+  [Bubble Sort]
+  Sebelum Sort : 47821, 3192, 88045, 512, ...
+  Sesudah Sort  : 1, 5, 11, 18, ...
+  Waktu Eksekusi : 2.3410 ms
 ```
 
 ---
 
-## 📊 Fitur Program
-- ✅ Generate data integer acak dengan `rand()`
-- ✅ Baca dataset string dari file `words_en.txt`
-- ✅ **Shuffle data** sebelum sorting (metode swap acak)
-- ✅ Tampilkan **10 data pertama** sebelum dan sesudah sorting
-- ✅ Ukur **waktu eksekusi** dengan `clock()`
-- ✅ Mode **Benchmark** untuk menjalankan semua algoritma sekaligus
-- ✅ Sorting secara **ascending**
-- ✅ Tanpa fungsi sorting bawaan C
+## Konfigurasi
 
----
+Konstanta berikut dapat diubah di bagian atas `sorting.c`:
 
-## 🔍 Penjelasan Algoritma
-
-### Bubble Sort — O(n²)
-Membandingkan elemen berdampingan dan menukarnya jika urutan salah. Diulang sampai tidak ada pertukaran.
-
-### Insertion Sort — O(n²)
-Membangun array terurut satu per satu dengan menyisipkan tiap elemen ke posisi yang tepat.
-
-### Selection Sort — O(n²)
-Menemukan elemen minimum dari sisa array dan menempatkannya di posisi berikutnya.
-
-### Merge Sort — O(n log n)
-Membagi array menjadi dua bagian, mengurutkan masing-masing secara rekursif, lalu menggabungkan.
-
-### Quick Sort — O(n log n) rata-rata
-Memilih pivot, mempartisi array, lalu mengurutkan dua bagian secara rekursif. Menggunakan **median-of-three** untuk menghindari worst-case.
-
-### Shell Sort — O(n log² n)
-Varian Insertion Sort yang membandingkan elemen dengan jarak (gap) tertentu, semakin kecil hingga gap = 1.
-
----
-
-## 👥 Anggota Kelompok
-| No | Nama | NPM |
+| Konstanta | Default | Keterangan |
 |---|---|---|
-| 1 | Al Aul Tsaqif |250810701100034|
-| 2 |Muhammad Rayyan | ... |
-| 3 |Imam As-Shadiq| ... |
+| `INT_DATA_SIZE` | 1000 | Jumlah data integer yang diuji |
+| `PREVIEW_COUNT` | 10 | Jumlah elemen yang ditampilkan pada preview |
+| `MAX_WORDS` | 500000 | Kapasitas maksimum kata yang dimuat |
+| `MAX_WORD_LEN` | 100 | Panjang maksimum satu kata |
+| `WORDS_FILE` | `"words_en.txt"` | Nama file dataset kata |
+
+---
+
+## Catatan Teknis
+
+- Perbandingan string menggunakan `strcasecmp` (case-insensitive).
+- Merge Sort dan Quick Sort mengalokasikan memori secara dinamis (`malloc`) untuk menghindari stack overflow pada dataset besar.
+- Data di-*shuffle* ulang sebelum setiap pengujian agar hasil waktu lebih representatif.
+- Fitur **Benchmark** (pilihan 4) menjalankan semua algoritma secara berurutan sehingga perbandingan waktu dapat dilakukan langsung.
+
+---
+
+## Persyaratan Sistem
+
+- Compiler: GCC (versi 5 ke atas direkomendasikan)
+- Sistem Operasi: Linux / macOS / Windows (dengan MinGW)
+- Fungsi `strcasecmp` tersedia di POSIX. Pengguna Windows perlu mengganti dengan `_stricmp` jika menggunakan MSVC.
