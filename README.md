@@ -1,4 +1,4 @@
-# Tugas 2 — Implementasi dan Analisis Algoritma Sorting
+Sorting implementation
 **Mata Kuliah:** Praktikum Struktur Data dan Algoritma C
 
 ---
